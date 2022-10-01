@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  rigapp_fe:
+    image: ${DOCKER_IMAGE_FE}
+    container_name: ${CONTAINER_NAME_FE}
+    networks:
+      - nginxproxymanager_default
+    ports:
+      - "9090:80"
+
+volumes:
+  rigapp_pg_data:
+
+networks:
+  nginxproxymanager_default:
+    external: true
