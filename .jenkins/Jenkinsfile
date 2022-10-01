@@ -1,0 +1,14 @@
+@Library('MyJenkins@main')
+import Commands
+import ProjectMetadata
+
+def projectMetadata = new ProjectMetadata();
+def cmd = new Commands();
+
+projectMetadata.projectName = "randomwebimages-fe"
+projectMetadata.dockerfile = "Dockerfile"
+projectMetadata.language = "randomwebimages-fe"
+projectMetadata.version = "1.0"
+projectMetadata.sourcesPath = "src"
+
+cmd.exec(projectMetadata);
