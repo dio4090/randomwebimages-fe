@@ -1,6 +1,6 @@
 import './App.css';
 import { React, Stack } from 'react';
-import loadImage from './assets/dist/img/Reload-1s-200px.gif'
+import loadImage from './assets/dist/img/img-loading.gif'
 
 import SelectItem from './components/SelectComponent';
 import Button from 'react-bootstrap/Button';
@@ -8,9 +8,42 @@ import Card from 'react-bootstrap/Card';
 
 function App() {
 
+  // START THE APP
+  var link_frame1 = "";
+  var link_frame2 = "";
+  var link_frame3 = "";
+
+  function loadImages() {
+    getImageFromApiAsync(1);
+    getImageFromApiAsync(2);
+    getImageFromApiAsync(3);
+  }
+
+  function getImageFromApiAsync(imgId) {
+    return fetch('https://api.randomwebimages.com/image/random')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        document.getElementById('img_home' + imgId).src = responseJson.image.link;
+
+        if (imgId === 1)
+          link_frame1 = responseJson.image.link
+        else if (imgId === 2)
+          link_frame2 = responseJson.image.link
+        else if (imgId === 3)
+          link_frame3 = responseJson.image.link
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   function refreshPage() {
     window.location.reload(false);
   }
+
+  loadImages();
 
   return (
     <div classNameName="App">
@@ -63,6 +96,7 @@ function App() {
           </div>
         </section>
 
+        {/* CATEGORY BUTTONS */}
         <section className="text-center container">
           <div className="row py-lg-4">
             <div className="col-md-8 mx-auto">
@@ -85,18 +119,6 @@ function App() {
           </div>
         </section>
 
-        {/* SELECT CATEGORY */}
-        <div id="divFormCategory" className="form-select-center">
-          <SelectItem></SelectItem>
-          {/* <select id="formCategory" onChange="checkSelectedCategory()" className="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-            <option value="all">Select a category</option>
-            <option value="animals">Animals</option>
-            <option value="vehicles">Vehicles (coming soon)</option>
-            <option value="technology">Technology (coming soon)</option>
-            <option value="food">Food (coming soon)</option>
-          </select> */}
-        </div>
-
         {/* IMAGES */}
         <div className="album py-5 bg-light">
           <div className="container">
@@ -105,10 +127,25 @@ function App() {
 
               <div className="justify-content-between align-items-center">
                 <Card style={{ width: '20rem' }}>
+                  <Card.Img variant="top" id="img_home1" src={loadImage} />
+                  <div className="center">
+                    <Card.Body className="align-items-center" >
+                      <Button variant="outline-success" onClick={(e) => {
+                        window.open(link_frame1, "_blank");
+                      }}>Go to Image</Button>
+                    </Card.Body>
+                  </div>
+                </Card>
+              </div>
+
+              <div className="justify-content-between align-items-center">
+                <Card style={{ width: '20rem' }}>
                   <Card.Img variant="top" id="img_home2" src={loadImage} />
                   <div className="center">
                     <Card.Body className="align-items-center" >
-                      <Button variant="outline-success">Go to Image</Button>
+                      <Button variant="outline-success" onClick={(e) => {
+                        window.open(link_frame2, "_blank");
+                      }}>Go to Image</Button>
                     </Card.Body>
                   </div>
                 </Card>
@@ -119,18 +156,9 @@ function App() {
                   <Card.Img variant="top" id="img_home3" src={loadImage} />
                   <div className="center">
                     <Card.Body className="align-items-center" >
-                      <Button variant="outline-success">Go to Image</Button>
-                    </Card.Body>
-                  </div>
-                </Card>
-              </div>
-
-              <div className="justify-content-between align-items-center">
-                <Card style={{ width: '20rem' }}>
-                  <Card.Img variant="top" id="img_home1" src={loadImage} />
-                  <div className="center">
-                    <Card.Body className="align-items-center" >
-                      <Button variant="outline-success">Go to Image</Button>
+                      <Button variant="outline-success" onClick={(e) => {
+                        window.open(link_frame3, "_blank");
+                      }}>Go to Image</Button>
                     </Card.Body>
                   </div>
                 </Card>
