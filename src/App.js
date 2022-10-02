@@ -1,5 +1,5 @@
 import './App.css';
-import { React, Stack } from 'react';
+import { React } from 'react';
 import loadImage from './assets/dist/img/img-loading.gif'
 
 import SelectItem from './components/SelectComponent';
@@ -118,6 +118,11 @@ function App() {
             </div>
           </div>
         </section>
+
+        {/* SELECT CATEGORY */}
+        <div id="divFormCategory" className="form-select-center">
+          <SelectItem></SelectItem>
+        </div>
 
         {/* IMAGES */}
         <div className="album py-5 bg-light">
