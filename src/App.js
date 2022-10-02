@@ -46,7 +46,7 @@ function App() {
   loadImages();
 
   return (
-    <div classNameName="App">
+    <div className="App">
       {/* HEADER */}
       <header>
         <div className="collapse bg-dark" id="navbarHeader">
